@@ -1,308 +1,249 @@
-# UPDATED
+# 🧠 Nightmare Exploitation Roadmap
 
-So, I've begun to make some updated ctf stuff. The first big part, deals with heap ctf challs, and can be found here:
+This repository is **not a random CTF collection**. It is a **progressive exploit development curriculum** designed to build *real-world binary exploitation capability* — from fundamentals to allocator subversion.
 
-https://github.com/guyinatuxedo/Shogun
+The modules are intentionally diverse and sometimes non-linear. This README provides:
 
-# Nightmare
+- A **clear mental model** of what each module teaches
+- A **layered learning roadmap** (why things exist, not just what exists)
+- **Preserved module names** (no renaming — filesystem-safe)
+- A strategy for **efficient, non-mechanical progression**
 
-Nightmare is an intro to binary exploitation / reverse engineering course based around ctf challenges. I call it that because it's a lot of people's nightmare to get hit by weaponized 0 days, which these skills directly translate into doing that type of work (plus it's a really cool song).
+---
 
-## What makes Nightmare different?
+## 🎯 Primary Goal of the Repository
 
-It's true there are a lot of resources out there to learn binary exploitation / reverse engineering skills, so what makes this different?
+> Build the ability to **analyze unknown binaries**, identify **exploit primitives**, and **chain them under real-world mitigations**.
 
-```
-*    Amount of Content             -    There is a large amount of content in this course (currently over 90 challenges), laid out in a linear fashion.
+This repo optimizes for:
+- Thinking in **primitives**, not tricks
+- Understanding **why exploits work**, not memorizing patterns
+- Transitioning from *manual exploitation* → *automation & reasoning*
 
-*    Well Documented Write Ups         -    Each challenge comes with a well documented writeup explaining how to go from being handed the binary to doing the exploit dev.
+---
 
-*    Multiple Problems per Topic     -    Most modules have multiple different challenges. This way you can use one to learn how the attack works, and then apply it to the others. Also different iterations of the problem will have knowledge needed to solve it.
+## 🧱 Layered Curriculum Overview
 
-*    Using all open source tools     -    All the tools used here are free and open sourced. No IDA torrent needed.
+Each layer represents a **conceptual upgrade** in exploitation ability.
+You do **not** need to solve everything sequentially.
 
-*    A Place to Ask Questions         -    So if you have a problem that you've been working for days and can't get anywhere (and google isn't helping).
-```
+---
 
-I have found that resources that have many of these things to be few and far between. As a result it can make learning these skills difficult since you don't really know what to learn, or how to learn it. This is essentially my attempt to help fix some of those problems.
-## Static Site
-
-If you want, there is a static github pages site which people say looks better: https://guyinatuxedo.github.io/
-
-## Github
-
-A copy of all of the challenges listed, can be found on the github: https://github.com/guyinatuxedo/nightmare
-
-## Special Thanks
-
-Special thanks to these people:
+## LAYER 0 — Environment, Tooling & Mindset
+**Purpose:** Build the execution environment and workflow intuition
 
 ```
-noopnoop     -    For dealing with me
-digitalcold  -    For showing me how good nightmare could look with mdbook
-you nerds     -    For looking at this
+00-intro
+01-intro_assembly
+02-intro_tooling
+references
+next
 ```
 
-## Discord
+**You gain:**
+- Assembly fluency
+- Debugging workflow
+- Mental readiness for later complexity
+
+---
+
+## LAYER 1 — Reverse Engineering Foundations
+**Purpose:** Understand binaries *without source code*
+
+```
+03-beginner_re
+36-obfuscated_reversing
+22-movfuscation
+21-dot_net
+23-custom_architecture
+34-emulated_targets
+```
+
+**You gain:**
+- CFG reconstruction
+- Obfuscation resistance
+- Cross-architecture reasoning
+
+---
+
+## LAYER 2 — Stack Exploitation (BOF Core)
+**Purpose:** Control instruction pointer and execution flow
+
+```
+04-bof_variable
+05-bof_callfunction
+06-bof_shellcode
+07-bof_static
+08-bof_dynamic
+09-bad_seed
+15-partial_overwrite
+17-stack_pivot
+```
+
+**You gain:**
+- RIP control
+- Stack layout manipulation
+- Entry-level exploit chaining
+
+---
+
+## LAYER 2.5 — Modern Mitigations & Bypasses
+**Purpose:** Operate in realistic, defended binaries
+
+```
+5.1-mitigation_aslr_pie
+6.1-mitigation_nx
+7.1-mitigation_canary
+7.2-mitigation_relro
+```
+
+**You gain:**
+- Defense-aware exploitation
+- Bypass reasoning
+- Constraint-driven payload design
+
+---
+
+## LAYER 3 — Control Without Injection (ROP / ret2*)
+**Purpose:** Program using existing code
+
+```
+14-ret_2_system
+16-srop
+18-ret2_csu_dl
+19-shellcoding_pt1
+20-patching_and_jumping
+```
+
+**You gain:**
+- ROP chain construction
+- Syscall-level control
+- Payload minimalism
+
+---
+
+## LAYER 4 — Format Strings & Memory Disclosure
+**Purpose:** Leak and write memory deliberately
+
+```
+10-fmt_strings
+37-fs_exploitation
+38-grab_bad
+```
+
+**You gain:**
+- Arbitrary read/write
+- GOT/stack corruption
+- Reliable libc leaks
+
+---
+
+## LAYER 5 — Symbolic & Automated Reasoning
+**Purpose:** Scale exploitation beyond manual effort
+
+```
+11-index
+12-z3
+13-angr
+45-automatic_exploit_generation
+```
 
-If you get stuck on something for hours on end and google can't answer your question, try asking in the discord (or if you just feel like talking about cool security things). Here is a link to it `https://discord.gg/p5E3VZF`
+**You gain:**
+- Constraint solving mindset
+- State-space exploration
+- Exploit automation
 
-Also if you notice any typos or mistakes, feel free to mention it in the Discord. With how much content is here, there is bound to be at least one.
+---
 
-# Index
+## LAYER 6 — Heap Fundamentals
+**Purpose:** Build allocator mental models
 
-Here is the index for all of the content in this course. Feel free to go through the whole thing, or only parts of it (don't let me tell you how to live your life). For the order that you do the challenges in a module, I would recommend starting with the first.
+```
+24-heap_overflow
+25-heap
+26-heap_grooming
+27-edit_free_chunk
+```
 
+**You gain:**
+- Chunk lifecycle understanding
+- Heap layout control
+- Memory corruption primitives
 
-## Intro Departure
+---
 
-#### 0.) Intro to the Project    
+## LAYER 7 — Heap Attacks (Bins & Internals)
+**Purpose:** Turn heap corruption into control
 
-#### 1.) Intro to Assembly     
--    Intro to assembly
--    Sample assembly reverse challs
+```
+28-fastbin_attack
+29-tcache
+30-unlink
+31-unsortedbin_attack
+32-largebin_attack
+33-custom_misc_heap
+44-more_tcache
+```
 
-#### 2.) Intro to Tooling     
--    gdb-gef     
--    pwntools
--    ghidra
+**You gain:**
+- Arbitrary write via allocator abuse
+- Reliable heap-based exploitation
 
-#### 3.) Beginner RE     
--    pico18_strings     
--    helithumper_re
--    csaw18_tourofx86pt1     
--    csaw19_beleaf
+---
 
-## Stack pt 0 Stack Tendencies
+## LAYER 8 — House of * Techniques (Advanced Heap)
+**Purpose:** Subvert glibc design assumptions
 
-#### 4.) Buffer Overflow of Variables
+```
+39-house_of_spirit
+40-house_of_lore
+41-house_of_force
+42-house_of_einherjar
+43-house_of_orange
+```
 
--    Csaw18/boi
--    TokyoWesterns17/just_do_it
--    Tamu19_pwn1
+**You gain:**
+- Allocator subversion
+- Expert-level heap exploitation
 
-#### 5.) Buffer Overflow Call Function
--    Csaw18_getit     
--    Tu17_vulnchat
--    Csaw16_warmup
+---
 
-#### 5.1) aslr/pie intro     
--    quick aslr/pie explanation
+## LAYER 9 — Logic & Integer Exploitation
+**Purpose:** Exploitation without memory corruption
 
-#### 6.) Buffer Overflow Call Shellcode
--    Tamu19_pwn3  
--    Csaw17_pilot
--    Tu18_shelleasy  
+```
+35-integer_exploitation
+```
 
-#### 6.1) nx intro     
--    nx explanation
+**You gain:**
+- Logic abuse
+- Boundary & arithmetic vulnerability exploitation
 
-#### 7.) ROP Chain Statically compiled
--    dcquals19_speedrun1
--    bkp16_simplecalc
--    dcquals16_feedme
+---
 
-#### 7.1) stack canary intro     
--    stack canary introduction
+## 🧭 Recommended Progression Strategy
 
-#### 7.2) relro intro     
--    relro introduction
+> ❌ Do NOT solve everything linearly
 
-#### 8.) ROP Dynamically Compiled
--    csaw17_svc    
--    fb19_overfloat    
--    hs19_storytime    
--    csaw19_babyboi
--    utc19_shellme
+### Efficient Path:
+1. Stack → ROP → Format String
+2. Then Heap Fundamentals
+3. Then Heap Attacks
+4. Automation last
 
-## General pt 0 Stardust Challenges
+Revisit earlier layers as needed.
 
-#### 9.) Bad Seed     
--    h3_time      
--    hsctf19_tuxtalkshow        
--    sunshinectf17_prepared    
+---
 
+## 🧠 Final Notes
 
-#### 10.) Format strings     
--    backdoor17_bbpwn  
--    twesterns16_greeting
--    pico_echo
--    watevr19_betstar
+- This repository rewards **depth**, not speed
+- Skipping is allowed — misunderstanding is not
+- Treat every module as a **primitive generator**, not a puzzle
 
-#### 11.) Index Array    
--    dcquals16_xkcd
--    sawmpctf19_dreamheaps
--    sunshinectf2017_alternativesolution
+If you finish this repo with understanding, you are **not a CTF beginner anymore**.
 
-#### 12.) Z3    
--    tokyowesterns17_revrevrev        
--    tuctf_future    
--    hsctf19_abyte    
+---
 
-#### 13.) Angr    
--    securityfest_fairlight    
--    plaid19_icancount
--    defcamp15_r100
-
-## Stack pt 1 Return to Stack, truly a perfect game
-
-#### 14.) Ret2system     
--    asis17_marymorton    
--    hxp18_poorcanary    
--    tu_guestbook
-
-#### 15.) Partial Overwrite     
--    Tu17_vulnchat2     
--    Tamu19_pwn2
--    hacklu15_stackstuff
-
-#### 16.) SROP     
--    backdoorctf_funsignals    
--    inctf17_stupiddrop
--    swamp19_syscaller
--    csaw19_smallboi
-
-#### 17.) Stack Pivot / Partial Overwrite
--    defconquals19_speedrun4
--    insomnihack18_onewrite
--    xctf16_b0verfl0w
-
-#### 18.) Ret2Csu / Ret2dl     
--    ropemporium_ret2csu
--    0ctf 2018 babystack
-
-## General pt 1 Armstrong challenges
-
-#### 19.) Shellcoding pt 1    
--    defconquals19_s3    
--    Csaw18_shellpointcode
--    defconquals19_s6
-
-#### 20.) Patching/Jumping    
--    dcquals18_elfcrumble                
--    plaid19_plaid_part_planning_III        
--    csaw16_gametime    
-
-
-#### 21.) .NET Reversing    
--    csaw13_dotnet        
--    csaw13_bikinibonanza
--    whitehat18_re06
-
-#### 22.) Movfuscation    
--    sawmpctf19_future    
--    asis18quals_babyc    
--    other_movfuscated
-
-#### 23.) Custom Architectures
--    h3_challenge0    
--    h3_challenge1
--    h3_challenge2
--    h3_challenge3
-
-## Heap Pt 0 rip Angel Beats
-
-#### 24.) Basic Heap overflow
--    protostar_heap1
--    protostar_heap0
--    protostar_heap2
-
-#### 25.) Intro to heap exploitation / binning    
--    explanation
-
-#### 26.) Heap Grooming     
--    explanation     
--    swamp19_heapgolf
--    pico_areyouroot  
-
-#### 27.) Edit Freed Chunk (pure explanation)    
--    Use After Free     
--    Double Free     
--    Null Byte Heap Consolidation
-
-#### 28.) Fastbin Attack    
--    explanation     
--    0ctf18_babyheap
--    csaw17_auir    
-
-#### 29.) tcache        
--    explanation
--    dcquals19_babyheap
--    plaid19_cpp        
-
-#### 30.) unlink        
--    explanation
--    hitcon14_stkof    
--    zctf16_note        
-
-#### 31.) Unsorted Bin Attack     
--    explanation
--    hitcon_magicheap     
--    0ctf16_zer0storage     
-
-#### 32.) Large Bin Attack    
--    largebin0_explanation
--    largebin1_explanation
-
-#### 33.) Custom Malloc     
--    csawquals17_minesweeper     
--    csawquals18_AliensVSSamurai
--    csawquals19_traveller
-
-## General Pt 2 Generic Isekai #367
-
-#### 34.) Qemu / Emulated Targets     
--   csaw18_tour_of_x86_pt_2     
--   csaw15_hackingtime             
--   csaw17_realism
-
-#### 35.) Integer Exploitation     
--   puzzle
--   int_overflow_post
--   signed_unsigned_int_expl
-
-#### 36.) Obfuscated Reversing     
--    csaw15_wyvern     
--    csaw17_prophecy
--    bkp16_unholy
-
-#### 37.) FS Exploitation    
--    swamp19_badfile
-
-#### 38.) Grab Bag         
--    csaw18_doubletrouble
--    hackim19_shop        
--    unit_vars_expl
--    csaw19_gibberish
-
-## Heap pt 1 heap x heap
-
-#### 39.) House of Spirit     
--    explanation
--    hacklu14_oreo
-
-#### 40.) House of Lore         
--    explanation
-
-#### 41.) House of Force        
--    explanation
--    bkp16_cookbook
-
-#### 42.) House of Einherjar     
--    explanation
-
-#### 43.) House of Orange     
--    explanation
-
-#### 44.) More tcache
--    csaw19_poppingCaps0
--    csaw19_poppingCaps1
-
-#### 45.) Automatic Exploit Generation
--    csaw20_rop
-
-#### Ending Documentation
--    References
--    What's next
-
+Happy breaking binaries 🧨
 
